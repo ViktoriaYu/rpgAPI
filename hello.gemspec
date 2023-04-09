@@ -3,22 +3,22 @@
 require_relative "lib/hello/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "hello"
-  spec.version = Hello::VERSION
-  spec.authors = ["Ni Tail"]
+  spec.name = "rpgAPI"
+  spec.version = "0.1"
+  spec.authors = ["Ni Tail", "Nevermind", "Goodger"]
   spec.email = ["wrumwrum@list.ru"]
 
-  spec.summary = "Write a short summary, because RubyGems requires one."
-  spec.description = "Write a longer description or delete this line."
-  spec.homepage = "https://github.com/ViktoriaYu/cats_battle"
+  spec.summary = "api that allows you to create small rpg"
+  #  spec.description = "Write a longer description or delete this line."
+  spec.homepage = "https://github.com/ViktoriaYu/rpgAPI"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
-  spec.metadata["allowed_push_host"] = "https://github.com/ViktoriaYu/cats_battle"
+  spec.metadata["allowed_push_host"] = "https://github.com/ViktoriaYu/rpgAPI"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/ViktoriaYu/cats_battle"
-  spec.metadata["changelog_uri"] = "https://github.com/ViktoriaYu/cats_battle"
+  spec.metadata["source_code_uri"] = "https://github.com/ViktoriaYu/rpgAPI"
+  spec.metadata["changelog_uri"] = "https://github.com/ViktoriaYu/rpgAPI"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
