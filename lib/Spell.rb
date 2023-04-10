@@ -4,7 +4,7 @@ class Spell
         @name = initial_name
       end
     
-    def Use(Target, AD, AP)
+    def use(target, AD, AP)
         
     end
       
