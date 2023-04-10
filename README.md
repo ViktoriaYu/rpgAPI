@@ -14,14 +14,16 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-You can you create player with 
+You can you create player with
+
 ```ruby
-Player.create(name, maxHP, AD, AP, Armor, mResist, speed, SpellList, Weapon)
+Player.create(name, max_hp, AD, AP, Armor, mResist, speed, SpellList, Weapon)
 ```
 
 NPC can be created with
+
 ```ruby
-NPC.create(name, maxHP, AD, AP, Armor, mResist, speed, SpellList, Weapon)
+NPC.create(name, max_hp, AD, AP, Armor, mResist, speed, SpellList, Weapon)
 ```
 
 You can you create weapon with
