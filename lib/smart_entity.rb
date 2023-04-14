@@ -1,11 +1,12 @@
 class SmartEntity < Entity
-  attr_reader :mana
+  attr_reader :mana, :skill_list
+  attr_accessor :team
 
-  def initialize(name, team, magic_resist, strenght, agility, intelligence, weapon, skill_list)
-    super(name, team, magic_resist, strenght, agility, intelligence)
+  def initialize(name, magic_resist, strength, agility, intelligence, weapon)
+    super(name, magic_resist, strength, agility, intelligence)
     @weapon = weapon
     @mana = 12 * @ability_power
-    @skill_list = skill_list
+    @skill_list = []
   end
 
   def attack(target)
@@ -32,6 +33,10 @@ class SmartEntity < Entity
 
   def get_random_damage_skill
     @skill_list.select{|skill| skill.skill_type == :damage_skill}.sample
+  end
+
+  def learn_skills(*skills)
+    skill_list.push(*skills)
   end
 
 end

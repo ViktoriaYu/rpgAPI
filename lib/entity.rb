@@ -3,14 +3,14 @@
 $Entities = []
 
 class Entity
-  attr_reader :name, :team, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist, :speed
+  attr_reader :name, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist, :speed
+  attr_accessor :team
 
-  def initialize(name, team, magic_resist, strenght, agility, intelligence)
+  def initialize(name, magic_resist, strength, agility, intelligence)
     @name = name
-    @team = team
-    @maximum_hp = 20 * strenght
-    @current_hp = 20 * strenght
-    @attack_damage = strenght
+    @maximum_hp = 20 * strength
+    @current_hp = 20 * strength
+    @attack_damage = strength
     @ability_power = intelligence
     @armor = agility / 6
     @magic_resist = magic_resist
@@ -19,6 +19,11 @@ class Entity
   end
 
   def take_damage(amount, type)
+
+    if amount<0
+      raise ArgumentError.new "Can't deal negative damage!"
+    end
+
     case type
     when :physical
       damage = if @armor >= 0
@@ -34,6 +39,8 @@ class Entity
                end
     when :pure
       damage = amount
+    else
+      raise ArgumentError("Unknown damage type")
     end
 
     @current_hp -= damage
@@ -41,6 +48,11 @@ class Entity
   end
 
   def heal(amount)
+
+    if amount <0
+      raise ArgumentError.new "Can't heal negative amount of hp"
+    end
+
     @current_hp += amount
     @current_hp = @maximum_hp if @current_hp > @maximum_hp
     print "#{@name} heals for #{amount} hp\n"
