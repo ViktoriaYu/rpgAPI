@@ -1,3 +1,4 @@
+module Game
 class Weapon
   attr_reader :name, :attack_damage_coef
 
@@ -8,3 +9,4 @@ class Weapon
 
 end
 
+end
