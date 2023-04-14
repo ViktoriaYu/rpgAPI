@@ -26,14 +26,12 @@ class SmartEntity < Entity
   # def choose_random_skill(target)
   #   use_skill(target, @attack_damage, @ability_power)
   # end
-
-  def get_random_heal_skill
-    @skill_list.select{|skill| skill.skill_type == :heal_skill}.sample
+  def get_random_skill(type)
+    @skill_list.select{|skill| skill.is_a?(type)}.sample
   end
 
-  def get_random_damage_skill
-    @skill_list.select{|skill| skill.skill_type == :damage_skill}.sample
-  end
+
+
 
   def learn_skills(*skills)
     skill_list.push(*skills)
