@@ -2,8 +2,8 @@ class SmartEntity < Entity
   attr_reader :mana, :skill_list
   attr_accessor :team
 
-  def initialize(name, magic_resist, strength, agility, intelligence, weapon)
-    super(name, magic_resist, strength, agility, intelligence)
+  def initialize(name, strength, agility, intelligence, weapon)
+    super(name, strength, agility, intelligence)
     @weapon = weapon
     @mana = 12 * @ability_power
     @skill_list = []

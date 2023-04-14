@@ -6,14 +6,14 @@ class Entity
   attr_reader :name, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist, :speed
   attr_accessor :team
 
-  def initialize(name, magic_resist, strength, agility, intelligence)
+  def initialize(name, strength, agility, intelligence)
     @name = name
     @maximum_hp = 20 * strength
     @current_hp = 20 * strength
     @attack_damage = strength
     @ability_power = intelligence
     @armor = agility / 6
-    @magic_resist = magic_resist
+    @magic_resist = (intelligence + strength) / 12 
     @speed = agility
     $Entities.push(self)
   end
