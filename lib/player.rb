@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 class Player < SmartEntity
-  attr_accessor :name, :id
+  attr_accessor :id
 
-  def initialize(max_hp, attack_damage, ability_power, armor, magic_resist, speed, spell_points, spell_list, weapon, name, id)
-    super(max_hp, attack_damage, ability_power, armor, magic_resist, speed, spell_points, spell_list, weapon)
-    @name = name
+  def initialize(name, team, maximum_hp, attack_damage, ability_power, armor, magic_resist, speed, weapon, mana, skill_list, id)
+    super(name, team, maximum_hp, attack_damage, ability_power, armor, magic_resist, speed, weapon, mana, skill_list)
     @id = id
   end
+
 end

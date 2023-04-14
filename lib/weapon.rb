@@ -1,9 +1,9 @@
 class Weapon
-  attr_accessor :name, :coefficient_attack_damage
+  attr_reader :name, :attack_damage_coef
 
-  def initialize(name, coefficient_attack_damage)
+  def initialize(name, attack_damage_coef)
     @name = name
-    @coefficient_attack_damage = coefficient_attack_damage
+    @attack_damage_coef = attack_damage_coef
   end
 
 end
