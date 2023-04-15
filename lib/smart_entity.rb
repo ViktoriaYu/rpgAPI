@@ -3,11 +3,16 @@ module Game
     attr_reader :mana, :skill_list
     attr_accessor :team
 
+    # @param [String] name
+    # @param [Integer] strength
+    # @param [Integer] agility
+    # @param [Integer] intelligence
+    # @param [Weapon] weapon
     def initialize(name, strength, agility, intelligence, weapon)
-      super(name, strength, agility, intelligence)
+      super(name, strength.to_i, agility.to_i, intelligence.to_i)
 
       @weapon = weapon
-      @mana = 12 * @ability_power
+      @mana = (12 * @ability_power).to_i
       @skill_list = []
     end
 
@@ -25,11 +30,14 @@ module Game
       end
     end
 
-    # def choose_random_skill(target)
-    #   use_skill(target, @attack_damage, @ability_power)
-    # end
+
+    # @param [Class] type
     def get_random_skill(type)
-      @skill_list.select { |skill| skill.is_a?(type) }.sample
+      if type <= BaseSkill
+        @skill_list.select { |skill| skill.is_a?(type) }.sample
+      else
+        raise ArgumentError.new  "#{type} isn't a skill!"
+      end
     end
 
     def learn_skills(*skills)
