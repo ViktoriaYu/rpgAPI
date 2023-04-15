@@ -35,6 +35,7 @@ end
 def display_hp2(entity1, entity2)
   print format("⌈%19s⌉    ⌈%19s⌉\n", entity1.name, entity2.name)
   print format("⌊mana %14d⌋    ⌊mana %14d⌋\n", entity1.mana, entity2.mana)
+  print format("⌊armor %13d⌋    ⌊armor %13d⌋\n", entity1.armor, entity2.armor)
   white_hearts1 = (entity1.current_hp / entity1.maximum_hp * 10).round
   white_hearts2 = (entity2.current_hp / entity2.maximum_hp * 10).round
   print '♥' * [white_hearts1, 0].max, '♡' * [10 - white_hearts1, 10].min, format('%5d/%5d    ', entity1.current_hp, entity1.maximum_hp)

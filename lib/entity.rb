@@ -3,18 +3,20 @@
 $Entities = []
 
 class Entity
-  attr_reader :name, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist, :speed
-  attr_accessor :team
+  attr_accessor :name, :team, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist, :speed, :statuses
 
-  def initialize(name, magic_resist, strength, agility, intelligence)
+
+  def initialize(name, team, strength, agility, intelligence)
     @name = name
+    @team = team
     @maximum_hp = 20 * strength
     @current_hp = 20 * strength
     @attack_damage = strength
     @ability_power = intelligence
     @armor = agility / 6
-    @magic_resist = magic_resist
+    @magic_resist = (strength + intelligence) / 12
     @speed = agility
+    @statuses = []
     $Entities.push(self)
   end
 
@@ -58,8 +60,14 @@ class Entity
     print "#{@name} heals for #{amount} hp\n"
   end
 
+  def add_status(status)
+    @statuses.push([status, status.duration])
+  end
+
   def take_turn
-    p '...'
+    #p @statuses
+    @statuses.select! {|s| s[1] > 0}
+    @statuses.each{|s| s[0].tic(self, s[1]); s[1]-=1}
   end
 
 end

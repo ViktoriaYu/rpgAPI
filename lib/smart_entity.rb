@@ -1,9 +1,8 @@
 class SmartEntity < Entity
-  attr_reader :mana, :skill_list
-  attr_accessor :team
+  attr_accessor :mana, :skill_list
 
-  def initialize(name, magic_resist, strength, agility, intelligence, weapon)
-    super(name, magic_resist, strength, agility, intelligence)
+  def initialize(name, team, strength, agility, intelligence, weapon)
+    super(name, team, strength, agility, intelligence)
     @weapon = weapon
     @mana = 12 * @ability_power
     @skill_list = []
@@ -16,7 +15,7 @@ class SmartEntity < Entity
 
   def use_skill(skill, target)
     if @mana >= skill.cost
-      skill.use(target, @attack_damage, @ability_power)
+      skill.use(self, target)
       @mana -= skill.cost
     else
       print "not enough mana\n"
@@ -26,12 +25,10 @@ class SmartEntity < Entity
   # def choose_random_skill(target)
   #   use_skill(target, @attack_damage, @ability_power)
   # end
+
   def get_random_skill(type)
-    @skill_list.select{|skill| skill.is_a?(type)}.sample
+    @skill_list.select{|skill| skill.skill_type == type}.sample
   end
-
-
-
 
   def learn_skills(*skills)
     skill_list.push(*skills)
