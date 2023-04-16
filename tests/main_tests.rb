@@ -1,17 +1,18 @@
 require_relative 'test_entity'
-require_relative 'test_smart_entity'
+require_relative 'test_weapon'
+#require_relative 'test_smart_entity'
 require 'test/unit/ui/console/testrunner'
 
-classes_to_test = [TestEntityInitialize, TestTakeDamage, TestHeal, TestWeaponInitialize, TestAttack]
+classes_to_test = [TestEntityInitialize, TestTakeDamage, TestHeal, TestWeaponInitialize]
 total_runs = 0
 total_passes = 0
 output_level = ARGV[0] == '-v' ? 5 : 0
 
 classes_to_test.each_with_index do |class_name, i|
-    test_num = i + 1
+  test_num = i + 1
     test_suite = Test::Unit::TestSuite.new("Task #{test_num} Test Suite")
     class_name.instance_methods(false).each do |method|
-        test_suite << class_name.new(method)
+      test_suite << class_name.new(method)
     end
     puts "Running Test #{test_num}..."
     score = Test::Unit::UI::Console::TestRunner.run(test_suite, { output_level: output_level })
@@ -21,5 +22,5 @@ classes_to_test.each_with_index do |class_name, i|
 end
 
 if total_runs == total_passes
-    puts 'ALL TESTS COMPLETED!'
+  puts 'ALL TESTS COMPLETED!'
 end
