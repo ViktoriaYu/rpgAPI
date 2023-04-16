@@ -8,7 +8,6 @@ GEM
   specs:
     ast (2.4.2)
     json (2.6.1)
-    minitest (5.17.0)
     parallel (1.22.1)
     parser (3.2.2.0)
       ast (~> 2.4.1)
@@ -39,7 +38,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  minitest (~> 5.0)
   rake (~> 13.0)
   rpgAPI!
   rubocop (~> 1.21)
