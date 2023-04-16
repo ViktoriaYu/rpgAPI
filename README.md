@@ -1,51 +1,75 @@
 # rpgAPI
 
 This gem allows you to create small rpg games. You can  customize enemies,
-weapons and spells.
+weapons, statuses and skills.
 
 ## Installation
-Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add rpgAPI
+Download source code from github
 
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install rpgAPI
+In project's root directory run
+    
+    $ bundle install
+    $ rake install
 
 ## Usage
 
-You can you create player with
+First add dependency to your Gemfile
 
 ```ruby
-Player.create(name, max_hp, AD, AP, Armor, mResist, speed, SpellList, Weapon)
+  gem 'rpgAPI'
 ```
 
-NPC can be created with
-
+Then require library with 
 ```ruby
-NPC.create(name, max_hp, AD, AP, Armor, mResist, speed, SpellList, Weapon)
+  require 'rpgAPI'
 ```
 
 You can you create weapon with
 ```ruby
-Weapon.create(name, AD)
+  sword  = Game::Weapon.new(name, attack_damage_coef)
 ```
 
-You create Spell and customize it's behavior by passing onUse callback to constructor
+You can create Status 
+```ruby
+  burn = Game::Status.new(tick_count, tick_func) 
+```
 
+
+
+You can create Skill and customize it's behavior by passing function(skill_effect) to constructor
+```ruby
+  fireball = Game::BaseSkill.new(display_name, skill_tags, skill_cost, skill_effect)
+```
+
+
+To create game entity and customize it's behaviour inherit from Game::SmartEntity
 ```ruby
 
-def onUse(Target, AD, AP)
-  Target.takeDamage(AD  + AP)
+class Swordsman < Game::SmartEntity
+  def initialize(name, team, weapon)
+    super(name, team, 20, 20, 10, weapon)
+  end
+
+  def take_turn
+    super # you must call super first
+    debuffskill = get_random_skill(:debuff_skill)
+    if @mana >= debuffskill.cost
+      use_skill(debuffskill, $entities.select { |e| e.team != @team }.sample)
+    else
+      attack($entities.select { |e| e.team != @team }.sample)
+    end
+  end
 end
 
-Spell.create(name, onUse)
+
+swordsman = Swordsman.new("Alehandro", :team2, sword)
 ```
 
-To start battle just call  startBattle and pass player and enemy objects to it.
+To start a battle just call  Game::battle and all entity that you've created will start the battle.
 
 ```ruby
-rpgApi.startBattle(player, enemy)
+Game::battle
 ```
 
 ## License
