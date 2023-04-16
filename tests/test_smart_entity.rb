@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require '../lib/rpgAPI'
+require_relative '../lib/rpgAPI'
 require 'test/unit'
 include Game
 
