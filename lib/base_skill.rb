@@ -7,6 +7,8 @@ module Game
     # @param [Integer] cost
     # @param [Proc] func
     def initialize(name, cost, func)
+      raise ArgumentError, "Skill cost can't be negative!" if cost.negative?
+
       @name = name
       @cost = cost.to_i
       @func = func

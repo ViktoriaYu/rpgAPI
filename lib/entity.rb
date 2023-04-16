@@ -12,6 +12,11 @@ module Game
     # @param [Integer] agility
     # @param [Integer] intelligence
     def initialize(name, strength, agility, intelligence)
+      raise ArgumentError, "Strength stats can't be negative" if strength.negative?
+      raise ArgumentError, "Agility stats can't be negative" if agility.negative?
+      raise ArgumentError, "Intelligence stats can't be negative" if intelligence.negative?
+
+
       @name = name
       @maximum_hp = (20 * strength).to_f
       @current_hp = maximum_hp
@@ -27,27 +32,25 @@ module Game
     # @param [Class] type
     def take_damage(amount, type)
 
-      if amount < 0
-        raise ArgumentError.new "Can't deal negative damage!"
-      end
+      raise ArgumentError, "Can't deal negative damage!" if amount.negative?
 
       case type
       when :physical
         damage = (if @armor >= 0
-                   amount * 100.0 / (100 + @armor)
-                 else
-                   amount * (2 - 100.0 / (100 - @armor))
-                 end).to_f
+                    amount * 100.0 / (100 + @armor)
+                  else
+                    amount * (2 - 100.0 / (100 - @armor))
+                  end).to_f
       when :magic
         damage = (if @magic_resist >= 0
-                   amount * 100.0 / (100 + @magic_resist)
-                 else
-                   amount * (2 - 100.0 / (100 - @magic_resist))
-                 end).to_f
+                    amount * 100.0 / (100 + @magic_resist)
+                  else
+                    amount * (2 - 100.0 / (100 - @magic_resist))
+                  end).to_f
       when :pure
         damage = amount.to_f
       else
-        raise ArgumentError.new("Unknown damage type")
+        raise ArgumentError, "Unknown damage type"
       end
 
       @current_hp -= damage
@@ -57,9 +60,7 @@ module Game
     # @param [Float] amount
     def heal(amount)
 
-      if amount < 0
-        raise ArgumentError.new "Can't heal negative amount of hp"
-      end
+      raise ArgumentError, "Can't heal negative amount of hp" if amount.negative?
 
       @current_hp += amount
       @current_hp = @maximum_hp if @current_hp > @maximum_hp
