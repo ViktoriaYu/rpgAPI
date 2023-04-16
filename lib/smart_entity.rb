@@ -15,7 +15,7 @@ module Game
     end
 
     def attack(target)
-      print "Attacks #{target.name}!\n"
+      print "#{@name} attacks #{target.name}!\n"
       target.take_damage(@weapon.attack_damage_coef * @attack_damage, :physical)
     end
 
