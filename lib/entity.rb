@@ -7,54 +7,62 @@ module Game
     attr_accessor :name, :team, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist, :speed, :statuses
 
 
+    # @param [String] name
+    # @param [Integer] strength
+    # @param [Integer] agility
+    # @param [Integer] intelligence
     def initialize(name, team, strength, agility, intelligence)
+      raise ArgumentError, "Strength stats can't be negative" if strength.negative?
+      raise ArgumentError, "Agility stats can't be negative" if agility.negative?
+      raise ArgumentError, "Intelligence stats can't be negative" if intelligence.negative?
+
+
       @name = name
       @team = team
-      @maximum_hp = 20 * strength
-      @current_hp = 20 * strength
-      @attack_damage = strength
-      @ability_power = intelligence
-      @armor = agility / 6
-      @magic_resist = (strength + intelligence) / 12
+      @maximum_hp = (20 * strength).to_f
+      @current_hp = maximum_hp
+      @attack_damage = strength.to_f
+      @ability_power = intelligence.to_f
+      @armor = (agility / 6).to_f
+      @magic_resist = ((strength + intelligence) / 12).to_f
       @speed = agility
       @statuses = []
       $entities.push(self)
     end
 
+    # @param [Float] amount
+    # @param [Class] type
       def take_damage(amount, type)
 
-        if amount < 0
-          raise ArgumentError.new "Can't deal negative damage!"
-        end
+      raise ArgumentError, "Can't deal negative damage!" if amount.negative?
 
-        case type
-        when :physical
-          damage = if @armor >= 0
-                    amount * 100 / (100 + @armor)
+      case type
+      when :physical
+        damage = (if @armor >= 0
+                    amount * 100.0 / (100 + @armor)
                   else
-                    amount * (2 - 100 / (100 - @armor))
-                  end
-        when :magic
-          damage = if @magic_resist >= 0
-                    amount * 100 / (100 + @magic_resist)
+                    amount * (2 - 100.0 / (100 - @armor))
+                  end).to_f
+      when :magic
+        damage = (if @magic_resist >= 0
+                    amount * 100.0 / (100 + @magic_resist)
                   else
-                    amount * (2 - 100 / (100 - @magic_resist))
-                  end
-        when :pure
-          damage = amount
-        else
-          raise ArgumentError("Unknown damage type")
-        end
+                    amount * (2 - 100.0 / (100 - @magic_resist))
+                  end).to_f
+      when :pure
+        damage = amount.to_f
+      else
+        raise ArgumentError, "Unknown damage type"
+      end
 
         @current_hp -= damage
         print "#{@name} takes #{damage.round(1)} #{type} damage\n"
       end
 
-      def heal(amount)
+    # @param [Float] amount
+    def heal(amount)
 
-        if amount < 0
-          raise ArgumentError.new "Can't heal negative amount of hp"
-        end
+      raise ArgumentError, "Can't heal negative amount of hp" if amount.negative?
 
     @current_hp += amount
     @current_hp = @maximum_hp if @current_hp > @maximum_hp
