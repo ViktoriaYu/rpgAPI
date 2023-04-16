@@ -1,10 +1,11 @@
 require_relative 'test_entity'
+require_relative 'test_smart_entity'
 require 'test/unit/ui/console/testrunner'
 
-classes_to_test = [TestTakeDamage, TestHeal]
+classes_to_test = [TestEntityInitialize, TestTakeDamage, TestHeal, TestAttack]
 total_runs = 0
 total_passes = 0
-output_level = ARGV[0] == '-v' ? 2 : 0
+output_level = ARGV[0] == '-v' ? 4 : 0
 
 classes_to_test.each_with_index do |class_name, i|
     test_num = i + 1
