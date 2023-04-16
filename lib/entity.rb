@@ -47,7 +47,7 @@ module Game
       when :pure
         damage = amount.to_f
       else
-        raise ArgumentError("Unknown damage type")
+        raise ArgumentError.new("Unknown damage type")
       end
 
       @current_hp -= damage

@@ -64,14 +64,12 @@ class TestTakeDamage < Test::Unit::TestCase
         assert_equal 189.25, entity_test.current_hp
     end
 
-    '''
     def test_unknown_type_of_damage
         entity_test = Entity.new("Tester", 10, 12, 14)
         assert_raise(ArgumentError) do
             entity_test.take_damage(10, :unknown)
         end
     end
-    '''
 
 end
 
