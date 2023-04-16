@@ -1,15 +1,17 @@
 # frozen_string_literal: true
-module Game
 
+module Game
   $entities = []
 
   class Entity
-    attr_accessor :name, :team, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist, :speed, :statuses
+    attr_accessor :name, :team, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist,
+                  :speed, :statuses
 
     # @param [String] name
     # @param [Integer] strength
     # @param [Integer] agility
     # @param [Integer] intelligence
+    # @param [Symbol] team
     def initialize(name, team, strength, agility, intelligence)
       raise ArgumentError, "Strength stats can't be negative" if strength.negative?
       raise ArgumentError, "Agility stats can't be negative" if agility.negative?
@@ -29,9 +31,8 @@ module Game
     end
 
     # @param [Float] amount
-    # @param [Class] type
+    # @param [Symbol] type
     def take_damage(amount, type)
-
       raise ArgumentError, "Can't deal negative damage!" if amount.negative?
 
       case type
@@ -52,7 +53,7 @@ module Game
       when :pure
         damage = amount.to_f
       else
-        raise ArgumentError, "Unknown damage type"
+        raise ArgumentError, 'Unknown damage type'
       end
 
       @current_hp -= damage
@@ -61,7 +62,6 @@ module Game
 
     # @param [Float] amount
     def heal(amount)
-
       raise ArgumentError, "Can't heal negative amount of hp" if amount.negative?
 
       @current_hp += amount
@@ -81,8 +81,11 @@ module Game
     def take_turn
       die if @current_hp <= 0
       # p @statuses
-      @statuses.select! { |s| s[1] > 0 }
-      @statuses.each { |s| s[0].tic(self, s[1]); s[1] -= 1 }
+      @statuses.select! { |s| (s[1]).positive? }
+      @statuses.each do |s|
+        s[0].tic(self, s[1])
+        s[1] -= 1
+      end
     end
   end
 end

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module Game
   class Status
     attr_reader :duration, :func
+
     def initialize(duration, func)
       @duration = duration
       @func = func

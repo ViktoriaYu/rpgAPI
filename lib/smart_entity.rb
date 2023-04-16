@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Game
   class SmartEntity < Entity
     attr_accessor :mana, :skill_list
@@ -28,10 +30,8 @@ module Game
       end
     end
 
-
-    # @param [Class] type
     def get_random_skill(*tags)
-      @skill_list.select { |skill| tags.to_set.subset?(skill.tags)}.sample
+      @skill_list.select { |skill| tags.to_set.subset?(skill.tags) }.sample
     end
 
     def learn_skills(*skills)

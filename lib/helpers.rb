@@ -1,44 +1,13 @@
 # frozen_string_literal: true
 
 module Game
-  def self.turn(entity1, entity2)
-    if entity1.speed > entity2.speed
-      print "#{entity1.name} moves... "
-      entity1.take_turn
-      return if entity2.current_hp <= 0
-
-      print "#{entity2.name} moves... "
-      entity2.take_turn
-    elsif entity1.speed < entity2.speed
-      print "#{entity2.name} moves... "
-      entity2.take_turn
-      return if entity1.current_hp <= 0
-
-      print "#{entity1.name} moves... "
-      entity1.take_turn
-    elsif rand(1) == 1
-      print "#{entity1.name} moves... "
-      entity1.take_turn
-      return if entity2.current_hp <= 0
-
-      print "#{entity2.name} moves... "
-      entity2.take_turn
-    else
-      print "#{entity2.name} moves... "
-      entity2.take_turn
-      return if entity1.current_hp <= 0
-
-      print "#{entity1.name} moves... "
-      entity1.take_turn
-    end
-  end
-
   def self.one_team_alive?
     team = $entities[0].team
-    $entities.each {|entity| return false if entity.team != team}
-    return true
+    $entities.each { |entity| return false if entity.team != team }
+    true
   end
 
+  # @param [Entity] entity
   def self.display_hp(entity)
     print format("⌈%19s⌉\n", entity.name)
     print format("|mana %14d|\n", entity.mana)
@@ -48,8 +17,8 @@ module Game
   end
 
   def self.battle
-    while !one_team_alive?
-      $entities.sort {|a, b| b.speed <=> a.speed}
+    until one_team_alive?
+      $entities.sort { |a, b| b.speed <=> a.speed }
       $entities.each { |entity| entity.take_turn }
       $entities.each { |entity| display_hp(entity) }
     end
