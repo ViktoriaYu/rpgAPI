@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
 module Game
+  require 'set'
+
   class BaseSkill
-    attr_reader :name, :func, :cost, :dmg
+    attr_reader :name, :tags, :func, :cost, :dmg
 
     # @param [String] name
+    # @param [Set] tags
     # @param [Integer] cost
     # @param [Proc] func
-    def initialize(name, cost, func)
+    def initialize(name, tags, cost, func)
       raise ArgumentError, "Skill cost can't be negative!" if cost.negative?
 
       @name = name
+      @tags = tags
       @cost = cost.to_i
       @func = func
     end

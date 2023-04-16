@@ -30,12 +30,8 @@ module Game
 
 
     # @param [Class] type
-    def get_random_skill(type)
-      if type <= BaseSkill
-        @skill_list.select { |skill| skill.is_a?(type) }.sample
-      else
-        raise ArgumentError.new  "#{type} isn't a skill!"
-      end
+    def get_random_skill(*tags)
+      @skill_list.select { |skill| tags.to_set.subset?(skill.tags)}.sample
     end
 
     def learn_skills(*skills)
