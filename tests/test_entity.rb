@@ -6,19 +6,19 @@ class TestEntityInitialize < Test::Unit::TestCase
 
     def test_negative_strength
         assert_raise(ArgumentError) do
-            entity_test = Entity.new("Tester", -10, 12, 14)
+            Entity.new("Tester", -10, 12, 14)
         end
     end
 
     def test_negative_agility
         assert_raise(ArgumentError) do
-            entity_test = Entity.new("Tester", 10, -12, 14)
+            Entity.new("Tester", 10, -12, 14)
         end
     end
 
     def test_negative_intellegence
         assert_raise(ArgumentError) do
-            entity_test = Entity.new("Tester", 10, 12, -14)
+            Entity.new("Tester", 10, 12, -14)
         end
     end
 
