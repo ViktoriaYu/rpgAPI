@@ -69,11 +69,17 @@ module Game
       print "#{@name} heals for #{amount} hp\n"
     end
 
+    def die
+      $entities.delete(self)
+      print "#{@name} is dead!\n"
+    end
+
     def add_status(status)
       @statuses.push([status, status.duration])
     end
 
     def take_turn
+      die if @current_hp <= 0
       # p @statuses
       @statuses.select! { |s| s[1] > 0 }
       @statuses.each { |s| s[0].tic(self, s[1]); s[1] -= 1 }
