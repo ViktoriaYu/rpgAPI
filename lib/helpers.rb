@@ -16,11 +16,37 @@ module Game
     print '♥' * [white_hearts, 0].max, '♡' * [10 - white_hearts, 10].min, format("%5d/%5d\n", entity.current_hp, entity.maximum_hp)
   end
 
+  def self.display_all_stats
+    $entities.each do |entity|
+      print format("⌈%19s⌉    ", entity.name)
+    end
+    print "\n"
+    $entities.each do |entity|
+      print format("|mana %14d|    ", entity.mana)
+    end
+    print "\n"
+    $entities.each do |entity|
+      print format("⌊armor %13d⌋    ", entity.armor)
+    end
+    print "\n"
+    $entities.each do |entity|
+      white_hearts = (entity.current_hp / entity.maximum_hp * 10).round
+      print '♥' * [white_hearts, 0].max, '♡' * [10 - white_hearts, 10].min, format("%5d/%5d    ", entity.current_hp, entity.maximum_hp)
+    end
+    print "\n"
+  end
+
   def self.battle
+    battle_counter = 1
     until one_team_alive?
+      print '=' * 25 * $entities.count, "\n"
+      print "turn ##{battle_counter}\n"
+      print '=' * 25 * $entities.count, "\n"
       $entities.sort { |a, b| b.speed <=> a.speed }
-      $entities.each { |entity| entity.take_turn }
-      $entities.each { |entity| display_hp(entity) }
+      $entities.each { |entity| if entity.current_hp.positive? && !one_team_alive? then entity.take_turn end; if !(entity.current_hp.positive?) then entity.die end; print '-' * 25 * $entities.count, "\n"}
+      #$entities.each { |entity| p entity.statuses }
+      display_all_stats
+      battle_counter += 1
     end
   end
 end
