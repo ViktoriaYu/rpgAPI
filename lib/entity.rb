@@ -1,15 +1,18 @@
 # frozen_string_literal: true
+
 module Game
   $entities = []
 
   class Entity
     attr_accessor :name, :team, :current_hp, :maximum_hp, :attack_damage, :ability_power, :armor, :magic_resist,
+
                   :speed, :statuses
 
     # @param [String] name
     # @param [Integer] strength
     # @param [Integer] agility
     # @param [Integer] intelligence
+    # @param [Symbol] team
     # @param [Symbol] team
     def initialize(name, team, strength, agility, intelligence)
       raise ArgumentError, "Strength stats can't be negative" if strength.negative?
@@ -52,6 +55,7 @@ module Game
       when :pure
         damage = amount.to_f
       else
+        raise ArgumentError, 'Unknown damage type'
         raise ArgumentError, 'Unknown damage type'
       end
 

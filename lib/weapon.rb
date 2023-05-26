@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Game
   class Weapon
     attr_reader :name, :attack_damage_coef
@@ -10,7 +12,5 @@ module Game
       @name = name
       @attack_damage_coef = attack_damage_coef.to_f
     end
-
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Game
   class Status
     attr_reader :duration, :tic_func, :init_func, :expire_func, :attack_func, :damaged_func, :cleance_func

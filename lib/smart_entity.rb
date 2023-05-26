@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Game
   class SmartEntity < Entity
     attr_accessor :mana, :skill_list
@@ -36,7 +38,7 @@ module Game
     end
 
     def get_skill_by_name(name)
-      @skill_list.select {|skill| skill.name == name}.sample
+      @skill_list.select {|skill| skill.name == name }.sample
     end
 
     def learn_skills(*skills)
