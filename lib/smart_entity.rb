@@ -15,12 +15,15 @@ module Game
     end
 
     def attack(target)
+      #$default_informer.on_attack(self, target)
       print "#{@name} attacks #{target.name}!\n"
-      target.take_damage(@weapon.attack_damage_coef * @attack_damage, :physical)
+      target.take_damage(@weapon.attack_damage_coef * @attack_damage, :physical, self)
+      @statuses.each {|s| s[0].buff_attack(self, target, self)}
     end
 
     def use_skill(skill, target)
       if @mana >= skill.cost
+        #$default_informer.on_skill(self, target, skill)
         skill.use(self, target)
         @mana -= skill.cost
       else
@@ -28,10 +31,12 @@ module Game
       end
     end
 
-
-    # @param [Class] type
     def get_random_skill(*tags)
-      @skill_list.select { |skill| tags.to_set.subset?(skill.tags)}.sample
+      @skill_list.select { |skill| tags.to_set.subset?(skill.tags) }.sample
+    end
+
+    def get_skill_by_name(name)
+      @skill_list.select {|skill| skill.name == name}.sample
     end
 
     def learn_skills(*skills)
