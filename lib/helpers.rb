@@ -43,7 +43,7 @@ module Game
       print '=' * 25 * $entities.count, "\n"
       print "turn ##{battle_counter}\n"
       print '=' * 25 * $entities.count, "\n"
-      $entities.sort { |a, b| a.speed <=> b.speed }
+      $entities.sort! { |a, b| b.speed <=> a.speed }
       $entities.each { |entity| if entity.current_hp.positive? && !one_team_alive? then entity.take_turn end; if !(entity.current_hp.positive?) then entity.die end; print '-' * 25 * $entities.count, "\n"}
       #$entities.each { |entity| p entity.statuses }
       display_all_stats
