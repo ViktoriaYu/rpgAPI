@@ -26,6 +26,10 @@ module Game
     end
     print "\n"
     $entities.each do |entity|
+      print format("|speed %13d|    ", entity.speed)
+    end
+    print "\n"
+    $entities.each do |entity|
       print format("⌊armor %13d⌋    ", entity.armor)
     end
     print "\n"
