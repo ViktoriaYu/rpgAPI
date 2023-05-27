@@ -15,7 +15,7 @@ module Game
     end
 
     def buff_tic(owner, cur, caster)
-      @tic_func.call(target, cur, caster) unless @tic_func == nil
+      @tic_func.call(owner, cur, caster) unless @tic_func == nil
     end
 
     def buff_init(owner, caster)
