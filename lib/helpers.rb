@@ -22,6 +22,14 @@ module Game
     end
     print "\n"
     $entities.each do |entity|
+      print format("|AD %16d|    ", entity.attack_damage)
+    end
+    print "\n"
+    $entities.each do |entity|
+      print format("|AP %16d|    ", entity.ability_power)
+    end
+    print "\n"
+    $entities.each do |entity|
       print format("|mana %14d|    ", entity.mana)
     end
     print "\n"
