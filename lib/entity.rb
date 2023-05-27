@@ -77,7 +77,7 @@ module Game
     end
 
     def die
-      $default_informer.on_death(self)
+      #$default_informer.on_death(self)
       $entities.delete(self)
       print "#{@name} is dead!\n"
     end
