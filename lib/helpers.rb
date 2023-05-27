@@ -38,6 +38,7 @@ module Game
 
   def self.battle
     battle_counter = 1
+    $entities.sort! { |a, b| b.speed <=> a.speed }
     display_all_stats
     until one_team_alive?
       print '=' * 25 * $entities.count, "\n"
